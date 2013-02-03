@@ -13,12 +13,10 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Worker extends Thread{
     String matr, pass;
-    int agg;
     
-    public Worker(String matr, String pass, int agg){
+    public Worker(String matr, String pass){
         this.matr = matr;
         this.pass = pass;
-        this.agg = agg;
     }
        
     public void run(){
@@ -61,6 +59,7 @@ public class Worker extends Thread{
                 OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
                 out.write(data);
                 out.flush();
+                Log.i("HTTP Req sent");
                 
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 String _page = "";
@@ -72,9 +71,11 @@ public class Worker extends Thread{
                 out.close();
                 in.close();
                 
-                sleep(agg*1000);
+                sleep(15000);
                 
-            }catch(Exception e){/*System.out.println("Error Connection");*/}
+            }catch(Exception e){
+            	Log.i("Connection Error:\n"+e);
+            }
         }
     }
 }
