@@ -1,10 +1,8 @@
 package it.unifitools.unifinetlogin;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import java.awt.Toolkit;
 import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JPasswordField;
@@ -84,9 +82,13 @@ public class Gui extends JFrame {
 		password.setBounds(89, 43, 123, 25);
 		getContentPane().add(password);
 		
-        String[] data = FileHandle.readFromFile("unificfg.imp").split("#");
-        matricola.setText(data[0]);
-        password.setText(data[1]);
+		String doc;
+        if((doc = FileHandle.readFromFile("unificfg.imp")) != null){
+        	String data[] = doc.split("#");
+        	matricola.setText(data[0]);
+            password.setText(data[1]);
+        }
+        
 	}
 	
 	@SuppressWarnings("deprecation")
