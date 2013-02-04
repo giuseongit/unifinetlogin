@@ -10,7 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.BufferedReader;
 
 public class FileHandle {
-	public static boolean saveToFile(String toSend, String path){
+	public static boolean saveToFile(String toSend, String path, boolean log){
 		try{
             PrintWriter out = new PrintWriter(new FileWriter(path));
             out.write(toSend);
@@ -18,12 +18,12 @@ public class FileHandle {
             out.close();
             return true;
         }catch(Exception e){
-        	Log.i("Error saving file:\n"+e);
+        	Log.i("Error saving file:"+e, log);
         	return false;
         }
 	}
 	
-	public static String readFromFile(String path){
+	public static String readFromFile(String path, boolean log){
 		try{
             BufferedReader in = new BufferedReader(new FileReader(path));
             String line;
@@ -34,12 +34,12 @@ public class FileHandle {
             in.close();
             return file;
         }catch(Exception e){
-        	Log.i("Error opening file:\n"+e);
+        	Log.i("Error opening file:\n"+e, log);
         	return null;
         }
 	}
 	
-	public static boolean cfgToFile(Config cfg, String path){
+	public static boolean cfgToFile(Config cfg, String path, boolean log){
 		try{
 			FileOutputStream out = new FileOutputStream(path);
 			ObjectOutputStream objOut = new ObjectOutputStream(out);
@@ -49,12 +49,12 @@ public class FileHandle {
 			out.close();
 			return true;
 		}catch(Exception e){
-			Log.i("Error saving obj:\n"+e);
+			Log.i("Error saving obj:\n"+e, log);
 			return false;
 		}
 	}
 	
-	public static Config cfgFromFile(String path){
+	public static Config cfgFromFile(String path, boolean log){
 		try{
 			FileInputStream in = new FileInputStream(path);
 			ObjectInputStream objIn = new ObjectInputStream(in);
@@ -63,7 +63,7 @@ public class FileHandle {
 			in.close();
 			return cfg;
 		}catch(Exception e){
-			Log.i("Error reading obj:\n"+e);
+			Log.i("Error reading obj:\n"+e, log);
 			return null;
 		}
 	}

@@ -17,11 +17,15 @@ public class Gui extends JFrame {
     private JPasswordField password;
     private JFormattedTextField matricola;
     private JButton start;
+    private boolean log;
     
     /**
      * TODO: add icon to JFrame
      */
-	public Gui() {
+	public Gui(boolean log, boolean toFile) {
+		this.log = log;
+		Log.i("Program started.", log);
+    	addWindowListener(new CustomWAdapter(toFile, log));
 		getContentPane().addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -33,7 +37,7 @@ public class Gui extends JFrame {
 		setResizable(false);
 		setBounds(234,152,234,152);
 		setTitle("unifiNetLogin");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Matricola");
@@ -63,7 +67,7 @@ public class Gui extends JFrame {
 				}
 			});
 		}catch(Exception e){
-			Log.i("Error creating JFormattedTxtField");
+			Log.i("Error creating JFormattedTxtField", log);
 			matricola = new JFormattedTextField();
 		}
 		
@@ -83,7 +87,7 @@ public class Gui extends JFrame {
 		getContentPane().add(password);
 		
 		String doc;
-        if((doc = FileHandle.readFromFile("unificfg.imp")) != null){
+        if((doc = FileHandle.readFromFile("unificfg.imp", log)) != null){
         	String data[] = doc.split("#");
         	matricola.setText(data[0]);
             password.setText(data[1]);
@@ -101,13 +105,14 @@ public class Gui extends JFrame {
 	            String data1 = matricola.getText();
                 String data2 = new String(password.getPassword());
                 String data = data1+"#"+data2;
-                FileHandle.saveToFile(data, "unificfg.imp");
-	            g = new Worker(matricola.getText(), new String(password.getPassword()));
+                FileHandle.saveToFile(data, "unificfg.imp", log);
+	            g = new Worker(matricola.getText(), new String(password.getPassword()), log);
 	            g.start();
 	        }
 	    }else{
 	        start.setText("Start");
 	        g.stop();
+	    	Log.i("Thread stopped.", log);
 	    }
 	}
 	

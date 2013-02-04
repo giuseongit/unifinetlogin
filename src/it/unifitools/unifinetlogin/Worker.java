@@ -13,13 +13,16 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Worker extends Thread{
     String matr, pass;
+    boolean log;
     
-    public Worker(String matr, String pass){
+    public Worker(String matr, String pass, boolean log){
         this.matr = matr;
         this.pass = pass;
+        this.log = log;
     }
        
     public void run(){
+    	Log.i("Thread started.", log);
         TrustManager[] trustAllCerts = new TrustManager[]{
             new X509TrustManager() {
                 public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -38,7 +41,7 @@ public class Worker extends Thread{
             SSLContext sc = SSLContext.getInstance("SSL");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-        } catch (Exception e) {/*System.out.println("Error SSL Installing");*/}
+        } catch (Exception e) {Log.i("Error SSL Installing", log);}
         
         while(true){
             String[] keys = { "buttonClicked", "redirect_url", "err_flag","info_flag","info_msg","username","password" };
@@ -59,22 +62,22 @@ public class Worker extends Thread{
                 OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
                 out.write(data);
                 out.flush();
-                Log.i("HTTP Req sent");
+                Log.i("HTTP Req sent", log);
                 
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                String _page = "";
+                @SuppressWarnings("unused")
+				String _page = "";
                 String line;
                 while ((line = in.readLine()) != null) {
                     _page += line;
                 }
-                System.out.println(_page);
                 out.close();
                 in.close();
                 
-                sleep(15000);
+                sleep(5000);
                 
             }catch(Exception e){
-            	Log.i("Connection Error:\n"+e);
+            	Log.i("Connection Error:\n"+e, log);
             }
         }
     }
