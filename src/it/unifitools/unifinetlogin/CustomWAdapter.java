@@ -14,6 +14,7 @@ public class CustomWAdapter extends WindowAdapter {
 	
 	@Override
 	public void windowClosing(WindowEvent e) {
+		
 		if(toFile){
 			FileHandle.saveToFile(Log.printLogs(), "unifilog.txt", false);
 		}

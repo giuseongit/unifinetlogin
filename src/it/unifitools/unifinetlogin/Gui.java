@@ -18,6 +18,7 @@ public class Gui extends JFrame {
     private JFormattedTextField matricola;
     private JButton start;
     private boolean log;
+    private Config cfg;
     
     /**
      * TODO: add icon to JFrame
@@ -85,13 +86,19 @@ public class Gui extends JFrame {
 		});
 		password.setBounds(89, 43, 123, 25);
 		getContentPane().add(password);
-		
-		String doc;
-        if((doc = FileHandle.readFromFile("unificfg.imp", log)) != null){
+		int os = OSProbe.getOs();
+		String path = OSProbe.getHome();
+		path = os == OSProbe.OS_GNU ? path+"/.unificfg.imp" : os == OSProbe.OS_WIN ? path+"\\unificfg.imp" : "unificfg.imp";
+		//String doc;
+		if((cfg = FileHandle.cfgFromFile(path, log)) != null){
+			matricola.setText(cfg.getMatr());
+			password.setText(cfg.getPwd());
+		}
+        /*if((doc = FileHandle.readFromFile("unificfg.imp", log)) != null){
         	String data[] = doc.split("#");
         	matricola.setText(data[0]);
             password.setText(data[1]);
-        }
+        }*/
         
 	}
 	
@@ -101,11 +108,14 @@ public class Gui extends JFrame {
 	        if(!check()){
 	            javax.swing.JOptionPane.showMessageDialog(this, "Riempire tutti i campi!", "",javax.swing.JOptionPane.WARNING_MESSAGE);
 	        }else{
+	        	int os = OSProbe.getOs();
+	        	String usrPath = OSProbe.getHome();
 	            start.setText("Stop");
 	            String data1 = matricola.getText();
                 String data2 = new String(password.getPassword());
-                String data = data1+"#"+data2;
-                FileHandle.saveToFile(data, "unificfg.imp", log);
+                cfg = new Config(data1, data2);
+                usrPath = os == OSProbe.OS_GNU ? usrPath+"/.unificfg.imp" : os == OSProbe.OS_WIN ? usrPath+"\\unificfg.imp" : "unificfg.imp";
+                FileHandle.cfgToFile(cfg, usrPath, log);
 	            g = new Worker(matricola.getText(), new String(password.getPassword()), log);
 	            g.start();
 	        }
