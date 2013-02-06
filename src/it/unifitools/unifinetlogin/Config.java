@@ -8,20 +8,36 @@ public class Config implements Serializable{
 	public String password;
 	
 	public Config(String matricola, String password){
-		this.matricola = matricola;
-		this.password = password;
-	}
-	
-	public void setPwd(String password){
-		this.password = password;
+		try{
+			byte[] temp = matricola.getBytes("UTF-8");
+			this.matricola = "";
+			for(int i = 0; i< temp.length; i++){
+				this.matricola += temp[i]+",";
+			}
+			temp = password.getBytes("UTF-8");
+			this.password = "";
+			for(int i = 0; i< temp.length; i++){
+				this.password += temp[i]+",";
+			}
+		}catch(Exception e){}
 	}
 	
 	public String getMatr(){
-		return matricola;
+		String vals[] = matricola.split(",");
+		byte[] ret = new byte[vals.length];
+		for(int i=0; i<vals.length; i++){
+			ret[i] = Byte.parseByte(vals[i]);
+		}
+		return new String(ret);
 	}
 	
 	public String getPwd(){
-		return password;
+		String vals[] = password.split(",");
+		byte[] ret = new byte[vals.length];
+		for(int i=0; i<vals.length; i++){
+			ret[i] = Byte.parseByte(vals[i]);
+		}
+		return new String(ret);
 	}
 	
 }

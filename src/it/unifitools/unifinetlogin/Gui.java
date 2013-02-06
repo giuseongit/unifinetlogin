@@ -88,7 +88,7 @@ public class Gui extends JFrame {
 		password.setBounds(89, 43, 123, 25);
 		getContentPane().add(password);
 		
-		setIconImage(new ImageIcon("conn.png").getImage());
+		setIconImage(new ImageIcon(this.getClass().getResource("/conn.png")).getImage());
 		
 		int os = OSProbe.getOs();
 		String path = OSProbe.getHome();

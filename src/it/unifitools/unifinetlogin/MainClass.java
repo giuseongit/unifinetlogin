@@ -41,6 +41,7 @@ public class MainClass {
 			}
 		}catch(IndexOutOfBoundsException e){}
 		new Gui(log, toFile).setVisible(true);
+		
 	}
 	
 	public static void help(){
