@@ -1,5 +1,6 @@
 package it.unifitools.unifinetlogin;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -86,20 +87,25 @@ public class Gui extends JFrame {
 		});
 		password.setBounds(89, 43, 123, 25);
 		getContentPane().add(password);
+		
+		setIconImage(new ImageIcon("conn.png").getImage());
+		
 		int os = OSProbe.getOs();
 		String path = OSProbe.getHome();
 		path = os == OSProbe.OS_GNU ? path+"/.unificfg.imp" : os == OSProbe.OS_WIN ? path+"\\unificfg.imp" : "unificfg.imp";
-		//String doc;
 		if((cfg = FileHandle.cfgFromFile(path, log)) != null){
 			matricola.setText(cfg.getMatr());
 			password.setText(cfg.getPwd());
+			if(os == OSProbe.OS_WIN){ 
+				Process p;
+				try {
+					p = Runtime.getRuntime().exec("attrib +h " + path);
+					p.waitFor();
+				} catch (Exception e){
+					Log.i("Error making file hidden", log);
+				}
+			}
 		}
-        /*if((doc = FileHandle.readFromFile("unificfg.imp", log)) != null){
-        	String data[] = doc.split("#");
-        	matricola.setText(data[0]);
-            password.setText(data[1]);
-        }*/
-        
 	}
 	
 	@SuppressWarnings("deprecation")
