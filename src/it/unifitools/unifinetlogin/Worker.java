@@ -22,7 +22,7 @@ public class Worker extends Thread{
     }
        
     public void run(){
-    	Log.i("Thread started.", log);
+    	Log.i("Thread avviato.", log);
         TrustManager[] trustAllCerts = new TrustManager[]{
             new X509TrustManager() {
                 public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -41,7 +41,7 @@ public class Worker extends Thread{
             SSLContext sc = SSLContext.getInstance("SSL");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-        } catch (Exception e) {Log.i("Error SSL Installing", log);}
+        } catch (Exception e) {Log.i("Errore durante l'installazione dei certificati SSL.", log);}
         
         while(true){
             String[] keys = { "buttonClicked", "redirect_url", "err_flag","info_flag","info_msg","username","password" };
@@ -77,7 +77,7 @@ public class Worker extends Thread{
                 sleep(5000);
                 
             }catch(Exception e){
-            	Log.i("Connection Error:\n"+e, log);
+            	Log.i("Errore di connessione:\n"+e, log);
             }
         }
     }

@@ -1,1 +1,5 @@
-Implementare pieno supporto ai vari sistemi operativi.
+Implementare pieno supporto ai vari sistemi operativi. 
+Nello specifico:
+ - Aggiungere il supporto per Mac OS
+ - Fixare bug riguardante la mancata trasparenza della trayIcon su Linux
+ - Sistemare l'impostazione di "file nascosto" per win7

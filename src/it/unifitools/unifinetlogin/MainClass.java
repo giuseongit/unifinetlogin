@@ -15,7 +15,7 @@ public class MainClass {
 			}else if(opt1.equals("help")){
 				help();
 			}else{
-				System.out.println("Invalid argument: "+opt1);
+				System.out.println("Parametro invalido: "+opt1);
 				help();
 			}
 		}catch(IndexOutOfBoundsException e){}
@@ -25,18 +25,18 @@ public class MainClass {
 				if(!log){
 					log = true;
 				}else{
-					System.out.println("log already used!");
+					System.out.println("log gia' usato!");
 					help();
 				}
 			}else if(opt2.equals("tofile")){
 				if(!toFile){
 					toFile = true;
 				}else{
-					System.out.println("tofile already used!");
+					System.out.println("tofile gia' usato!");
 					help();
 				}
 			}else{
-				System.out.println("Invalid argument: "+opt1);
+				System.out.println("Parametro invalido: "+opt1);
 				help();
 			}
 		}catch(IndexOutOfBoundsException e){}
@@ -45,7 +45,7 @@ public class MainClass {
 	}
 	
 	public static void help(){
-		System.out.println("Usage: unifinetlogin.jar [log|tofile]\n\tlog\tShow logs in shell\n\ttofile\tSave logs to unifilog.txt\n\thelp\tShow this help\n");
+		System.out.println("Uso: unifinetlogin.jar [log|tofile]\n\tlog\tMostra i log nella console\n\ttofile\tSalva i log in unifilog.txt\n\thelp\tMostra questa schermata\n");
 		System.exit(0);
 	}
 

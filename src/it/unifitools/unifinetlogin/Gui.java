@@ -7,6 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JPasswordField;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -19,15 +24,21 @@ public class Gui extends JFrame {
     private JFormattedTextField matricola;
     private JButton start;
     private boolean log;
+    private boolean toFile;
     private Config cfg;
+    private MenuItem trigger;
+    private TrayIcon tray;
+    private SystemTray trayBar;
     
     /**
      * TODO: add icon to JFrame
      */
 	public Gui(boolean log, boolean toFile) {
 		this.log = log;
-		Log.i("Program started.", log);
-    	addWindowListener(new CustomWAdapter(toFile, log));
+		this.toFile = toFile;
+		Log.i("Programma avviato.", log);
+		setupTray();
+    	addWindowListener(new CustomWAdapter(toFile, log, this, trayBar, tray));
 		getContentPane().addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -69,7 +80,7 @@ public class Gui extends JFrame {
 				}
 			});
 		}catch(Exception e){
-			Log.i("Error creating JFormattedTxtField", log);
+			Log.i("Errore nella creazione della JFormattedTxtField", log);
 			matricola = new JFormattedTextField();
 		}
 		
@@ -89,7 +100,7 @@ public class Gui extends JFrame {
 		getContentPane().add(password);
 		
 		setIconImage(new ImageIcon(this.getClass().getResource("/conn.png")).getImage());
-		
+				
 		int os = OSProbe.getOs();
 		String path = OSProbe.getHome();
 		path = os == OSProbe.OS_GNU ? path+"/.unificfg.imp" : os == OSProbe.OS_WIN ? path+"\\unificfg.imp" : "unificfg.imp";
@@ -102,21 +113,22 @@ public class Gui extends JFrame {
 					p = Runtime.getRuntime().exec("attrib +h " + path);
 					p.waitFor();
 				} catch (Exception e){
-					Log.i("Error making file hidden", log);
+					Log.i("Errore nel settare il file come nascosto.", log);
 				}
 			}
 		}
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void startstop(){
-		if(start.getText().equals("Start")){
+	private void startstop(){
+		if((start.getText().equals("Start"))||(trigger.getLabel().equals("Start"))){
 	        if(!check()){
 	            javax.swing.JOptionPane.showMessageDialog(this, "Riempire tutti i campi!", "",javax.swing.JOptionPane.WARNING_MESSAGE);
 	        }else{
 	        	int os = OSProbe.getOs();
 	        	String usrPath = OSProbe.getHome();
 	            start.setText("Stop");
+	            trigger.setLabel("Stop");
 	            String data1 = matricola.getText();
                 String data2 = new String(password.getPassword());
                 cfg = new Config(data1, data2);
@@ -127,16 +139,56 @@ public class Gui extends JFrame {
 	        }
 	    }else{
 	        start.setText("Start");
+	        trigger.setLabel("Start");
 	        g.stop();
 	    	Log.i("Thread stopped.", log);
 	    }
 	}
 	
-	public boolean check(){
+	private boolean check(){
         if(!matricola.getText().equals("") && !new String(password.getPassword()).equals("")){
             return true;
         }else{
             return false;
         }
     }
+	
+	private void setupTray(){
+		trigger = new MenuItem("Start");
+		if(!SystemTray.isSupported()){
+			Log.i("Impossibile usare la trayBar", log);
+			return;
+		}
+		final PopupMenu menu = new PopupMenu();
+		Image img = new ImageIcon(this.getClass().getResource("/conn.png")).getImage();
+		if(OSProbe.getOs() == OSProbe.OS_GNU){
+			img = img.getScaledInstance(22, 22, Image.SCALE_AREA_AVERAGING);
+		}else if(OSProbe.getOs() == OSProbe.OS_WIN){
+			img = img.getScaledInstance(18, 18, Image.SCALE_AREA_AVERAGING);
+		}
+		tray = new TrayIcon(img, "Unifinetlogin", menu);
+		trayBar = SystemTray.getSystemTray();
+		
+		MenuItem show = new MenuItem("Mostra");
+        MenuItem exit = new MenuItem("Esci");
+        
+        menu.add(show);
+        menu.addSeparator();
+        menu.add(trigger);
+        menu.addSeparator();
+        menu.add(exit);
+       
+        tray.setPopupMenu(menu);
+		
+		show.addActionListener(new CustomAListener(toFile, log, this, trayBar, tray));
+		
+		trigger.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startstop();
+            }
+        });
+		
+		exit.addActionListener(new CustomAListener(toFile, log, this, trayBar, tray));
+		tray.addMouseListener(new CustomAListener(toFile, log, this, trayBar, tray));
+	}
 }

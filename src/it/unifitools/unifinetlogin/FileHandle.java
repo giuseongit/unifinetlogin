@@ -18,7 +18,7 @@ public class FileHandle {
             out.close();
             return true;
         }catch(Exception e){
-        	Log.i("Error saving file:"+e, log);
+        	Log.i("Errore durante il salvataggio del file:\n"+e, log);
         	return false;
         }
 	}
@@ -34,7 +34,7 @@ public class FileHandle {
             in.close();
             return file;
         }catch(Exception e){
-        	Log.i("Error opening file:\n"+e, log);
+        	Log.i("Errore nell'apertura del file:\n"+e, log);
         	return null;
         }
 	}
@@ -49,7 +49,7 @@ public class FileHandle {
 			out.close();
 			return true;
 		}catch(Exception e){
-			Log.i("Error saving obj:\n"+e, log);
+			Log.i("Errore durante il salvataggio del file:\n"+e, log);
 			return false;
 		}
 	}
@@ -63,7 +63,7 @@ public class FileHandle {
 			in.close();
 			return cfg;
 		}catch(Exception e){
-			Log.i("Error reading obj:\n"+e, log);
+			Log.i("Errore nell'apertura del file:\n"+e, log);
 			return null;
 		}
 	}
