@@ -1,8 +1,12 @@
 package it.unifitools.unifinetlogin;
 
 import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.io.BufferedReader;
 
 public class FileHandle {
@@ -30,8 +34,37 @@ public class FileHandle {
             in.close();
             return file;
         }catch(Exception e){
-        	Log.i("Errore nell'apertura del file:\n"+e);
+        	Log.i("Error opening file:\n"+e);
         	return null;
         }
+	}
+	
+	public static boolean cfgToFile(Config cfg, String path){
+		try{
+			FileOutputStream out = new FileOutputStream(path);
+			ObjectOutputStream objOut = new ObjectOutputStream(out);
+			objOut.writeObject(cfg);
+			objOut.flush();
+			objOut.close();
+			out.close();
+			return true;
+		}catch(Exception e){
+			Log.i("Error saving obj:\n"+e);
+			return false;
+		}
+	}
+	
+	public static Config cfgFromFile(String path){
+		try{
+			FileInputStream in = new FileInputStream(path);
+			ObjectInputStream objIn = new ObjectInputStream(in);
+			Config cfg = (Config) objIn.readObject();
+			objIn.close();
+			in.close();
+			return cfg;
+		}catch(Exception e){
+			Log.i("Error reading obj:\n"+e);
+			return null;
+		}
 	}
 }
