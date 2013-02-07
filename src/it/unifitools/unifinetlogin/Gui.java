@@ -164,7 +164,7 @@ public class Gui extends JFrame {
 		if(OSProbe.getOs() == OSProbe.OS_GNU){
 			img = img.getScaledInstance(22, 22, Image.SCALE_AREA_AVERAGING);
 		}else if(OSProbe.getOs() == OSProbe.OS_WIN){
-			img = img.getScaledInstance(18, 18, Image.SCALE_AREA_AVERAGING);
+			img = img.getScaledInstance(20, 20, Image.SCALE_AREA_AVERAGING);
 		}
 		tray = new TrayIcon(img, "Unifinetlogin", menu);
 		trayBar = SystemTray.getSystemTray();
