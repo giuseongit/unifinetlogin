@@ -5,6 +5,12 @@ import java.awt.TrayIcon;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * @author giuse
+ * 
+ * La classe CustonWAdapter gestisce i comportamenti da avere quando si
+ * chide la finestra e quando la si minimizza.
+ */
 public class CustomWAdapter extends WindowAdapter {
 	private boolean toFile;
 	private boolean log;

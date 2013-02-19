@@ -2,6 +2,18 @@ package it.unifitools.unifinetlogin;
 
 import java.io.Serializable;
 
+/**
+ * @author giuse
+ * 
+ * Questa classe contiene matricola e password.
+ * Essa implementa l'interfaccia Serializable che indica gli oggetti che possono
+ * essere serializzati, cioè salvati su file.
+ * 
+ * Per garantire un minimo di sicurezza i dati all'interno delle stringhe sono
+ * codificati in byte, in modo che pur aprendo il file salvato non è immediata
+ * la lettura dei dati.
+ **/
+
 @SuppressWarnings("serial")
 public class Config implements Serializable{
 	public String matricola;

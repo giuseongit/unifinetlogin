@@ -17,6 +17,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * @author giuse
+ * 
+ * La classe Gui implementa la struttura ed il comportamento dell'interfaccia
+ * grafica dell'applicazione.
+ */
 @SuppressWarnings("serial")
 public class Gui extends JFrame {
 	private Worker g;
@@ -30,9 +36,6 @@ public class Gui extends JFrame {
     private TrayIcon tray;
     private SystemTray trayBar;
     
-    /**
-     * TODO: add icon to JFrame
-     */
 	public Gui(boolean log, boolean toFile) {
 		this.log = log;
 		this.toFile = toFile;
@@ -145,6 +148,9 @@ public class Gui extends JFrame {
 	    }
 	}
 	
+	/**
+	 * Metodo che controlla che tutti i campi siano riempiti. 
+	 */
 	private boolean check(){
         if(!matricola.getText().equals("") && !new String(password.getPassword()).equals("")){
             return true;

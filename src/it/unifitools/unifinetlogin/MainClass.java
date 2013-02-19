@@ -1,5 +1,12 @@
 package it.unifitools.unifinetlogin;
 
+/**
+ * @author giuse
+ * 
+ * La classe main è l'entry point  dell'intera applicazione. Qui si rileva se sono
+ * stati passati dei programmi all'applicazione ed in caso affermativo verranno
+ * settate le opportune variabili. Ha anche un piccolo help che ne descrive l'uso.
+ */
 public class MainClass {
 	public static void main(String[] args) {
 		String opt1 = "";

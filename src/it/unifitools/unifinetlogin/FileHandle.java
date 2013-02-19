@@ -9,6 +9,14 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.BufferedReader;
 
+/**
+ * @author giuse
+ * 
+ * La classe FileHandle gestisce l'interazione con i file: nello specifico i suoi
+ * metodi permettono di poter leggere/scrivere da/su file (saveToFile, readFromFile)
+ * oppure di poter salvare o leggere oggetti di classe Config serializzati
+ * (cfgToFile, cfgFromFile).
+ */
 public class FileHandle {
 	public static boolean saveToFile(String toSend, String path, boolean log){
 		try{

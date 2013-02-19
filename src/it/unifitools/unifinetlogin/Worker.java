@@ -11,6 +11,12 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ * @author giuse
+ * 
+ * La classe Worker estende la classe Thread e costituisce il processo che
+ * fisicamente manda la richiesta di autenticazione al gateway (1.1.1.1)
+ */
 public class Worker extends Thread{
     String matr, pass;
     boolean log;

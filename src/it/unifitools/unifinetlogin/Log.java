@@ -3,9 +3,9 @@ package it.unifitools.unifinetlogin;
 import java.util.ArrayList;
 
 /**
+ * @author giuse
  * 
- * TODO: net logging
- *
+ * Questa classe gestisce la stampa ed il salvataggio dei log del programma.
  */
 public class Log {
 	private static ArrayList<String> logs = new ArrayList<String>();

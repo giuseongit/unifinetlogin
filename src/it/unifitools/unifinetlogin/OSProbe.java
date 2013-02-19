@@ -1,5 +1,11 @@
 package it.unifitools.unifinetlogin;
 
+/**
+ * @author giuse
+ * 
+ * Questa classe fornisce informazioni sul sistema, in particolare: tipo di
+ * sistema e cartella principale (home) dell'utente.
+ */
 public class OSProbe {
 	public static final int OS_ERR = 0;
 	public static final int OS_WIN = 1;

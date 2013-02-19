@@ -7,6 +7,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * @author giuse
+ *	
+ * Questa classe implementa un ActionListener ed un MouseListener, implementando
+ * i comportamenti da avere quando si minimizza nella system tray o lo si
+ * ripristina da essa.
+ */
 public class CustomAListener implements ActionListener, MouseListener{
 	private boolean toFile;
 	private boolean log;
@@ -40,7 +47,7 @@ public class CustomAListener implements ActionListener, MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if(e.getClickCount() >= 2){
-			Log.i("RRipristinato dalla Tray", log);
+			Log.i("Ripristinato dalla Tray", log);
 			trayBar.remove(tray);
 			f.setVisible(true);
 		}
