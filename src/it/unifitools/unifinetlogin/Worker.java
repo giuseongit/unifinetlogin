@@ -78,13 +78,17 @@ public class Worker extends Thread{
                     _page += line;
                 }
                 out.close();
-                in.close();
-                
-                sleep(5000);
-                
+                in.close();                
             }catch(Exception e){
             	Log.i("Errore di connessione:\n"+e, log);
             }
+            
+            try{
+            	sleep(5000);
+            }catch(InterruptedException e){
+            	Log.i("Errore nello sleep. Applicazione probabilmente interrotta. Info:\n"+e, log);
+            }
+            
         }
     }
 }
