@@ -5,7 +5,7 @@ strumento per rimanere connessi alla rete dell'ateneo fiorentino
 
 Un pratico strumento che, una volta avviato, ti permetter i non preoccuparti di dover reinserire continuamente matricola e password per poter andare online.
 
-Versione attuale (0.9b)
+Versione attuale (0.9c)
   Caratteristiche:
    - Supporto dei sistemi Windows e Linux
    - Salvataggio del file di configurazione nella home dell'utente come file nascosto
@@ -18,5 +18,4 @@ Versione attuale (0.9b)
    - Supporto per Mac OS
    
   Bug noti:
-   - File di configurazione non nascosto su win7
    - Mancata trasparenza dell'icona nella tray su linux (Bug noto di X11, risolvibile via Java)
