@@ -18,12 +18,30 @@ import java.io.BufferedReader;
  * (cfgToFile, cfgFromFile).
  */
 public class FileHandle {
-	public static boolean saveToFile(String toSend, String path, boolean log){
+	public static boolean saveToFile(String toSend, String path, boolean log, int os){
+		if(os == OSProbe.OS_WIN){ 
+			Process p;
+			try {
+				p = Runtime.getRuntime().exec("attrib -h " + path);
+				p.waitFor();
+			} catch (Exception e){
+				Log.i("Errore nel settare il file come nascosto.", log);
+			}
+		}
 		try{
             PrintWriter out = new PrintWriter(new FileWriter(path));
             out.write(toSend);
             out.flush();
             out.close();
+            if(os == OSProbe.OS_WIN){ 
+				Process p;
+				try {
+					p = Runtime.getRuntime().exec("attrib +h " + path);
+					p.waitFor();
+				} catch (Exception e){
+					Log.i("Errore nel settare il file come nascosto.", log);
+				}
+			}
             return true;
         }catch(Exception e){
         	Log.i("Errore durante il salvataggio del file:\n"+e, log);
@@ -47,7 +65,16 @@ public class FileHandle {
         }
 	}
 	
-	public static boolean cfgToFile(Config cfg, String path, boolean log){
+	public static boolean cfgToFile(Config cfg, String path, boolean log, int os){
+		if(os == OSProbe.OS_WIN){ 
+			Process p;
+			try {
+				p = Runtime.getRuntime().exec("attrib -h " + path);
+				p.waitFor();
+			} catch (Exception e){
+				Log.i("Errore nel settare il file come nascosto.", log);
+			}
+		}
 		try{
 			FileOutputStream out = new FileOutputStream(path);
 			ObjectOutputStream objOut = new ObjectOutputStream(out);
@@ -55,6 +82,15 @@ public class FileHandle {
 			objOut.flush();
 			objOut.close();
 			out.close();
+			if(os == OSProbe.OS_WIN){ 
+				Process p;
+				try {
+					p = Runtime.getRuntime().exec("attrib +h " + path);
+					p.waitFor();
+				} catch (Exception e){
+					Log.i("Errore nel settare il file come nascosto.", log);
+				}
+			}
 			return true;
 		}catch(Exception e){
 			Log.i("Errore durante il salvataggio del file:\n"+e, log);

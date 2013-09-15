@@ -110,15 +110,6 @@ public class Gui extends JFrame {
 		if((cfg = FileHandle.cfgFromFile(path, log)) != null){
 			matricola.setText(cfg.getMatr());
 			password.setText(cfg.getPwd());
-			if(os == OSProbe.OS_WIN){ 
-				Process p;
-				try {
-					p = Runtime.getRuntime().exec("attrib +h " + path);
-					p.waitFor();
-				} catch (Exception e){
-					Log.i("Errore nel settare il file come nascosto.", log);
-				}
-			}
 		}
 	}
 	
@@ -136,7 +127,7 @@ public class Gui extends JFrame {
                 String data2 = new String(password.getPassword());
                 cfg = new Config(data1, data2);
                 usrPath = os == OSProbe.OS_GNU ? usrPath+"/.unificfg.imp" : os == OSProbe.OS_WIN ? usrPath+"\\unificfg.imp" : "unificfg.imp";
-                FileHandle.cfgToFile(cfg, usrPath, log);
+                FileHandle.cfgToFile(cfg, usrPath, log, os);
 	            g = new Worker(matricola.getText(), new String(password.getPassword()), log);
 	            g.start();
 	        }

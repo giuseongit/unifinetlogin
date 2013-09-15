@@ -29,7 +29,7 @@ public class CustomWAdapter extends WindowAdapter {
 	@Override
 	public void windowClosing(WindowEvent e) {
 		if(toFile){
-			FileHandle.saveToFile(Log.printLogs(), "unifilog.txt", false);
+			FileHandle.saveToFile(Log.printLogs(), "unifilog.txt", false, OSProbe.OS_ERR);
 		}
 		Log.i("Programma fermato.", log);
 		System.exit(0);
