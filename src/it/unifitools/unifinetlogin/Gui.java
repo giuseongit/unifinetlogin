@@ -113,7 +113,6 @@ public class Gui extends JFrame {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	private void startstop(){
 		if((start.getText().equals("Start"))||(trigger.getLabel().equals("Start"))){
 	        if(!check()){
@@ -134,7 +133,7 @@ public class Gui extends JFrame {
 	    }else{
 	        start.setText("Start");
 	        trigger.setLabel("Start");
-	        g.stop();
+	        g.stopThread();
 	    	Log.i("Thread stopped.", log);
 	    }
 	}

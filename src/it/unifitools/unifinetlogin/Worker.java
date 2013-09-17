@@ -18,13 +18,20 @@ import javax.net.ssl.HttpsURLConnection;
  * fisicamente manda la richiesta di autenticazione al gateway (1.1.1.1)
  */
 public class Worker extends Thread{
-    String matr, pass;
-    boolean log;
+    private String matr, pass;
+    private volatile boolean active;
+    private boolean log;
     
     public Worker(String matr, String pass, boolean log){
         this.matr = matr;
         this.pass = pass;
         this.log = log;
+        active = true;
+    }
+    
+    
+    public void stopThread(){
+    	active = false;
     }
        
     public void run(){
@@ -49,7 +56,7 @@ public class Worker extends Thread{
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         } catch (Exception e) {Log.i("Errore durante l'installazione dei certificati SSL.", log);}
         
-        while(true){
+        while(active){
             String[] keys = { "buttonClicked", "redirect_url", "err_flag","info_flag","info_msg","username","password" };
             String[] vals = { "4", "null", "0","0","0", matr, pass };
             String data = "";
@@ -88,7 +95,6 @@ public class Worker extends Thread{
             }catch(InterruptedException e){
             	Log.i("Errore nello sleep. Applicazione probabilmente interrotta. Info:\n"+e, log);
             }
-            
         }
     }
 }
