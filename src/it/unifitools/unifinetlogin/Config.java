@@ -19,6 +19,13 @@ public class Config implements Serializable{
 	public String matricola;
 	public String password;
 	
+	/**
+	 * Il costruttore della classe Config che prende matricola e password
+	 * in chiaro, come stringhe e le trasforma in stringhe di byte. 
+	 * 
+	 * @param matricola
+	 * @param password
+	 */
 	public Config(String matricola, String password){
 		try{
 			byte[] temp = matricola.getBytes("UTF-8");
@@ -34,6 +41,12 @@ public class Config implements Serializable{
 		}catch(Exception e){}
 	}
 	
+	/**
+	 * Qesto metodo restituisce una stringa che contiene la matricola
+	 * partendo da una stringa di byte salvata nell'oggetto
+	 * 
+	 * @return ret La matricola in chiaro.
+	 */
 	public String getMatr(){
 		String vals[] = matricola.split(",");
 		byte[] ret = new byte[vals.length];
@@ -43,6 +56,12 @@ public class Config implements Serializable{
 		return new String(ret);
 	}
 	
+	/**
+	 * Qesto metodo restituisce una stringa che contiene la password
+	 * partendo da una stringa di byte salvata nell'oggetto
+	 * 
+	 * @return ret La password in chiaro.
+	 */
 	public String getPwd(){
 		String vals[] = password.split(",");
 		byte[] ret = new byte[vals.length];

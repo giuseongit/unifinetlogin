@@ -18,6 +18,19 @@ import java.io.BufferedReader;
  * (cfgToFile, cfgFromFile).
  */
 public class FileHandle {
+	
+	/**
+	 * Il metodo saveToFile salva del testo su un file.
+	 * Se il sistema è Windows, prima il file, se presente, viene reso visibile
+	 * (togliendo l'attributo nascosto [h=hidden]), poi viene scritto su di esso
+	 * la stringa toSend.
+	 * 
+	 * @param toSend	La stringa da salvare.
+	 * @param path		Il percorso del file.
+	 * @param log		Booleano che indica se i log vanno stampati a video.
+	 * @param os		Identificativo del sistema operativo.
+	 * @return
+	 */
 	public static boolean saveToFile(String toSend, String path, boolean log, int os){
 		if(os == OSProbe.OS_WIN){ 
 			Process p;
@@ -49,6 +62,13 @@ public class FileHandle {
         }
 	}
 	
+	/**
+	 * Questo metodo legge del testo da file.
+	 * 
+	 * @param path	Il percorso del file da leggere.
+	 * @param log	Booleano che indica se i log vanno stampati a video.
+	 * @return
+	 */
 	public static String readFromFile(String path, boolean log){
 		try{
             BufferedReader in = new BufferedReader(new FileReader(path));
@@ -65,6 +85,13 @@ public class FileHandle {
         }
 	}
 	
+	/**
+	 * cfgToFile salva un oggetto di classe Config in un file.
+	 * 
+	 * @param cfg	L'oggetto da salvare su file.
+	 * @param path	Il percorso in cui salvare l'oggetto.
+	 * @return	boolean	L'esito del salvataggio.
+	 */
 	public static boolean cfgToFile(Config cfg, String path, boolean log, int os){
 		if(os == OSProbe.OS_WIN){ 
 			Process p;
