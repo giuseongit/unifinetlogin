@@ -1,5 +1,6 @@
 package it.unifitools.unifinetlogin;
 
+import java.awt.Frame;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
@@ -50,6 +51,7 @@ public class CustomAListener implements ActionListener, MouseListener{
 			Log.i("Ripristinato dalla Tray", log);
 			trayBar.remove(tray);
 			f.setVisible(true);
+			f.setState(Frame.NORMAL);
 		}
 	}
 	
