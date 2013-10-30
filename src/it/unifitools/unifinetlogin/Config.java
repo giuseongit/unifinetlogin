@@ -1,4 +1,4 @@
-package it.uni.unilogin;
+package it.unifitools.unifinetlogin;
 
 import java.io.Serializable;
 

@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.BufferedReader;
-import it.uni.unilogin.Config;
 
 /**
  * @author giuse
