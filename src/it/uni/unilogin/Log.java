@@ -1,5 +1,5 @@
-package it.unifitools.unifinetlogin;
- 
+package it.uni.unilogin;
+
 import java.util.ArrayList;
 
 /**

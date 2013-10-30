@@ -4,6 +4,9 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import it.uni.unilogin.Log;
+import it.uni.unilogin.FileHandle;
+import it.uni.unilogin.OSProbe;
 
 /**
  * @author giuse

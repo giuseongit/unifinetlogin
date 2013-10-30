@@ -17,6 +17,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import it.uni.unilogin.Config;
+import it.uni.unilogin.Log;
+import it.uni.unilogin.FileHandle;
+import it.uni.unilogin.OSProbe;
 
 /**
  * @author giuse

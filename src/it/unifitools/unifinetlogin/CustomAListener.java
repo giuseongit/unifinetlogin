@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import it.uni.unilogin.Log;
+import it.uni.unilogin.FileHandle;
+import it.uni.unilogin.OSProbe;
 
 /**
  * @author giuse
