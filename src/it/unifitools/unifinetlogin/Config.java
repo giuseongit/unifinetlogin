@@ -34,6 +34,7 @@ public class Config implements Serializable{
 				this.matricola += temp[i]+",";
 			}
 			this.password = "";
+			temp = password.getBytes("UTF-8");
 			for(int i = 0; i< temp.length; i++){
 				this.password += temp[i]+",";
 			}
