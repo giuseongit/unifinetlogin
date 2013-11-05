@@ -1,5 +1,11 @@
 package it.unifitools.unifinetlogin;
 
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.MBeanRegistrationException;
+import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
+import javax.management.NotCompliantMBeanException;
+import javax.management.ObjectName;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.lang.management.ManagementFactory;
 
 /**
  * @author giuse
@@ -35,8 +42,22 @@ public class Gui extends JFrame {
     private MenuItem trigger;
     private TrayIcon tray;
     private SystemTray trayBar;
+    Settings set;
+    MBeanServer mbs;
+    ObjectName name;	
     
 	public Gui(boolean log, boolean toFile) {
+		set = new Settings(this);
+		mbs = ManagementFactory.getPlatformMBeanServer();
+		try {
+			name = new ObjectName("it.unifitools.unifinelogin:type=SettingsMBean");
+			mbs.registerMBean(set, name);
+		} catch (MalformedObjectNameException e1) {
+		} catch (InstanceAlreadyExistsException e1) {
+		} catch (MBeanRegistrationException e1) {
+		} catch (NotCompliantMBeanException e1) {
+		}
+		
 		this.log = log;
 		this.toFile = toFile;
 		Log.i("Programma avviato.", log);
@@ -84,6 +105,8 @@ public class Gui extends JFrame {
 			});
 		}catch(Exception e){
 			Log.i("Errore nella creazione della JFormattedTxtField", log);
+
+        	Log.errInc();
 			matricola = new JFormattedTextField();
 		}
 		
@@ -186,5 +209,13 @@ public class Gui extends JFrame {
 		
 		exit.addActionListener(new CustomAListener(toFile, log, this, trayBar, tray));
 		tray.addMouseListener(new CustomAListener(toFile, log, this, trayBar, tray));
+	}
+	
+	public Config getCfg(){
+		return cfg;
+	}
+	
+	public Worker getWorker(){
+		return g;
 	}
 }

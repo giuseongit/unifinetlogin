@@ -16,8 +16,8 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Config implements Serializable{
-	public String matricola;
-	public String password;
+	private String matricola;
+	private String password;
 	
 	/**
 	 * Il costruttore della classe Config che prende matricola e password
@@ -34,6 +34,7 @@ public class Config implements Serializable{
 				this.matricola += temp[i]+",";
 			}
 			this.password = "";
+			temp = password.getBytes("UTF-8");
 			for(int i = 0; i< temp.length; i++){
 				this.password += temp[i]+",";
 			}

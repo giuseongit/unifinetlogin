@@ -53,11 +53,13 @@ public class FileHandle {
 					p.waitFor();
 				} catch (Exception e){
 					Log.i("Errore nel settare il file come nascosto.", log);
+		        	Log.errInc();
 				}
 			}
             return true;
         }catch(Exception e){
         	Log.i("Errore durante il salvataggio del file:\n"+e, log);
+        	Log.errInc();
         	return false;
         }
 	}
@@ -81,6 +83,7 @@ public class FileHandle {
             return file;
         }catch(Exception e){
         	Log.i("Errore nell'apertura del file:\n"+e, log);
+        	Log.errInc();
         	return null;
         }
 	}
@@ -100,6 +103,7 @@ public class FileHandle {
 				p.waitFor();
 			} catch (Exception e){
 				Log.i("Errore nel settare il file come nascosto.", log);
+	        	Log.errInc();
 			}
 		}
 		try{
@@ -116,11 +120,13 @@ public class FileHandle {
 					p.waitFor();
 				} catch (Exception e){
 					Log.i("Errore nel settare il file come nascosto.", log);
+		        	Log.errInc();
 				}
 			}
 			return true;
 		}catch(Exception e){
 			Log.i("Errore durante il salvataggio del file:\n"+e, log);
+        	Log.errInc();
 			return false;
 		}
 	}
@@ -135,6 +141,7 @@ public class FileHandle {
 			return cfg;
 		}catch(Exception e){
 			Log.i("Errore nell'apertura del file:\n"+e, log);
+        	Log.errInc();
 			return null;
 		}
 	}

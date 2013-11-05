@@ -8,12 +8,30 @@ import java.util.ArrayList;
  * Questa classe gestisce la stampa ed il salvataggio dei log del programma.
  */
 public class Log {
+	private static int errCount = 0;
+	private static int reqCount = 0;
 	private static ArrayList<String> logs = new ArrayList<String>();
 	public static void i(String log, boolean toCmd){
 		if(toCmd){
 			System.out.println(log);
 		}
 		logs.add(log);
+	}
+	
+	public static void reqInc(){
+		reqCount++;
+	}
+	
+	public static int getReqNum(){
+		return reqCount;
+	}
+	
+	public static void errInc(){
+		errCount++;
+	}
+	
+	public static int getErrCount(){
+		return errCount;
 	}
 	
 	public static String printLogs(){

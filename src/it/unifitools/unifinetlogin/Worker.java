@@ -21,12 +21,22 @@ public class Worker extends Thread{
     private String matr, pass;
     private volatile boolean active;
     private boolean log;
+    private int wait;
     
     public Worker(String matr, String pass, boolean log){
         this.matr = matr;
         this.pass = pass;
         this.log = log;
         active = true;
+        wait = 5000;
+    }
+    
+    public int getWait(){
+    	return wait;
+    }
+    
+    public void setWait(int t){
+    	wait = t;
     }
     
     
@@ -54,7 +64,10 @@ public class Worker extends Thread{
             SSLContext sc = SSLContext.getInstance("SSL");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-        } catch (Exception e) {Log.i("Errore durante l'installazione dei certificati SSL.", log);}
+        } catch (Exception e) {
+        	Log.i("Errore durante l'installazione dei certificati SSL.", log);
+    		Log.errInc();
+        }
         
         while(active){
             String[] keys = { "buttonClicked", "redirect_url", "err_flag","info_flag","info_msg","username","password" };
@@ -85,15 +98,18 @@ public class Worker extends Thread{
                     _page += line;
                 }
                 out.close();
-                in.close();                
+                in.close();    
+                Log.reqInc();
             }catch(Exception e){
             	Log.i("Errore di connessione:\n"+e, log);
+            	Log.errInc();
             }
             
             try{
-            	sleep(5000);
+            	sleep(wait);
             }catch(InterruptedException e){
             	Log.i("Errore nello sleep. Applicazione probabilmente interrotta. Info:\n"+e, log);
+            	Log.errInc();
             }
         }
     }
